@@ -1,3 +1,5 @@
+import math
+
 # generic card class
 class Card:
 
@@ -25,15 +27,38 @@ class Card:
     def render(self):
 
         print("-" * self.width)
-        print("| " + self.name + " " * (self.width - len(self.name) - 3) + "|")
-        print(" " * self.width)
+
+        if self.type == "draw":
+
+            feat_lead = math.floor((self.width - 4 - len(self.feature))/2)
+            feat_padd = math.ceil((self.width - 4 - len(self.feature))/2)
+
+            print("| " + self.name + " " * (self.width - len(self.name) - 4) + " |")
+            print("| " +  " " * (self.width - 4) + " |")
+            print("| " + " " * feat_lead + self.feature + " " * feat_padd + " |")
+            print("| " +  " " * (self.width - 4) + " |")
+
+            # check for 1 or 2 shapes
+            if len(self.shape) == 3:
+
+                print("| " + " " * (self.width - 18) + self.shape[0] + " " * (self.width - 19) + " |")
+                print("| " + " " * (self.width - 18) + self.shape[1] + " " * (self.width - 19) + " |")
+                print("| " + " " * (self.width - 18) + self.shape[2] + " " * (self.width - 19) + " |")
+
+            if len(self.shape) == 6:
+
+
+
+        print("-" * self.width)
 
 
 # main
 if __name__ == "__main__":
 
     # generate a card_width
-    ec = Card(25, "draw", "example", 2, ["   []  ", "[][][]  ", "        "], "[H] or [W]", 20)
+    ec1 = Card(25, "draw", "example", 2, ["    []  ", "[][][]  ", "        "], "[H] or [W]", 20)
+    ec2 = Card(25, "draw", "example", 2, ["    []  ", "[][][]  ", "        ", "  []    ", "[][][]  ", "  []    "], "[F]", 20)
 
     # print test
-    ec.render()
+    ec1.render()
+    ec2.render()
