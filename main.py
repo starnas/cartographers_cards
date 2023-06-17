@@ -1,32 +1,39 @@
-
-# score card class
-class Card_score:
+# generic card class
+class Card:
 
     # main initialization
-    def __init__(self, table_name):
+    def __init__(self,
+                 card_width = 20,
+                 card_type = "NA",
+                 card_name = "NA",
+                 card_time = "NA",
+                 card_shape = "NA",
+                 card_feature = "NA",
+                 solo_score = "NA"
+                 ):
 
-        # card name
-        self.name = card_name
+        # variables
+        self.width = card_width
         self.type = card_type
-        self.text = card_text
-        self.image = card_image
+        self.name = card_name
+        self.time = card_time
+        self.shape = card_shape
+        self.feature = card_feature
+        self.stars = solo_score
 
-# drawing card class
+    # card renderer
+    def render(self):
 
-# card renderer
-def render_card(tc):
-
-    card_width = 20
-    print("-" * card_width)
-    print("| " + tc.name + " " * (card_width - len(tc.name) - 3) + "|")
-    print(" " * card_width)
+        print("-" * self.width)
+        print("| " + self.name + " " * (self.width - len(self.name) - 3) + "|")
+        print(" " * self.width)
 
 
 # main
 if __name__ == "__main__":
 
     # generate a card_width
-    ec = Card("example")
+    ec = Card(25, "draw", "example", 2, ["   []  ", "[][][]  ", "        "], "[H] or [W]", 20)
 
     # print test
-    render_card(ec)
+    ec.render()
