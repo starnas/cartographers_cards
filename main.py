@@ -72,6 +72,24 @@ class Card:
     # return
     return(out)
 
+# display render
+def render_display_line(c1, c2 = "NA", c3 = "NA", c4 = "NA"):
+
+  out = []
+
+  for i in range(len(c1)):
+    out_line = c1[i]
+    if c2 != "NA":
+      out_line = out_line + c2[i]
+    if c3 != "NA":
+      out_line = out_line + c3[i]
+    if c4 != "NA":
+      out_line = out_line + c4[i]
+    out.append(out_line)
+  
+  return(out)
+
+
 # main
 if __name__ == "__main__":
 
@@ -81,9 +99,11 @@ if __name__ == "__main__":
   c07 = Card(25, "explore", "Great River", 1, ["[]      ", "[]      ", "[]   (C)", "    []  ", "  [][]  ", "[][]    "], "[W]", "NA", "07")
   c08 = Card(25, "explore", "Farmland", 1, ["[]      ", "[]      ", "     (C)", "  []    ", "[][][]  ", "  []    "], "[F]", "NA", "08")
   c09 = Card(25, "explore", "Hamlet", 1, ["[]      ", "[][]    ", "     (C)", "[][][]  ", "[][]    ", "        "], "[H]", "NA", "09")
+  c10 = Card(25, "explore", "Forgotten Forest", 1, ["[]      ", "  []    ", "     (C)", "[]      ", "[][]    ", "  []    "], "[T]", "NA", "10")
 
   # print test
-  print(*c07.rendering, sep = "\n")
-  print(*c08.rendering, sep = "\n")
-  print(*c09.rendering, sep = "\n")
-
+  #print(*c07.rendering, sep = "\n")
+  #print(*c08.rendering, sep = "\n")
+  #print(*c09.rendering, sep = "\n")
+  t = render_display_line(c07.rendering, c08.rendering, c09.rendering, c10.rendering)
+  print(*t, sep = "\n")
