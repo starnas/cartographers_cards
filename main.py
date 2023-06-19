@@ -46,9 +46,9 @@ class Card:
       out.append("| time: " + str(self.time) + " " * (self.width - 11) + " |")
       out.append("| " + " " * (self.width - 4) + " |")
       out.append("| " + " " * name_lead + self.name + " " * name_padd + " |")
-      out.append("| " +  " " * (self.width - 4) + " |")
+      out.append("| " + " " * (self.width - 4) + " |")
       out.append("| " + " " * feat_lead + self.feature + " " * feat_padd + " |")
-      out.append("| " +  " " * (self.width - 4) + " |")
+      out.append("| " + " " * (self.width - 4) + " |")
 
       # check for 1 or 2 shapes
       if len(self.shape) == 3:
@@ -64,7 +64,7 @@ class Card:
         out.append("| " + " " * (self.width - 24) + self.shape[2] + " | " + self.shape[5] + " " * (self.width - 24) + " |")
 
     # solo score
-    out.append("| " +  " " * (self.width - 4) + " |")
+    out.append("| " + " " * (self.width - 4) + " |")
     out.append("| " + " " * (self.width - 9) + self.number + "/41 |")
 
     # bottom border
@@ -76,12 +76,15 @@ class Card:
 # main
 if __name__ == "__main__":
 
-  # generate a card_width
+  # generate explore cards
   c05 = Card(25, "explore", "Temple Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "NA", "05")
   c06 = Card(25, "explore", "Outpost Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "NA", "06")
-  c07 = Card(25, "explore", "Great River", 1, ["  []    ", "  []    ", "  [] (C)", "    []  ", "  [][]  ", "[][]    "], "[W]", "NA", "07")
+  c07 = Card(25, "explore", "Great River", 1, ["[]      ", "[]      ", "[]   (C)", "    []  ", "  [][]  ", "[][]    "], "[W]", "NA", "07")
+  c08 = Card(25, "explore", "Farmland", 1, ["[]      ", "[]      ", "     (C)", "  []    ", "[][][]  ", "  []    "], "[F]", "NA", "08")
+  c09 = Card(25, "explore", "Hamlet", 1, ["[]      ", "[][]    ", "     (C)", "[][][]  ", "[][]    ", "        "], "[H]", "NA", "09")
 
   # print test
-  print(*c06.rendering, sep = "\n")
   print(*c07.rendering, sep = "\n")
-  
+  print(*c08.rendering, sep = "\n")
+  print(*c09.rendering, sep = "\n")
+
