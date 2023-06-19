@@ -38,33 +38,32 @@ class Card:
     # card type selector
     if self.type == "explore":
 
+      # prepare local variables
       name_lead = math.floor((self.width - 4 - len(self.name))/2)
       name_padd = math.ceil((self.width - 4 - len(self.name))/2)
       feat_lead = math.floor((self.width - 4 - len(self.feature))/2)
       feat_padd = math.ceil((self.width - 4 - len(self.feature))/2)
+      empty_row = "| " + " " * (self.width - 4) + " |"
 
+      # top part of card
       out.append("| time: " + str(self.time) + " " * (self.width - 11) + " |")
-      out.append("| " + " " * (self.width - 4) + " |")
+      out.append(empty_row)
       out.append("| " + " " * name_lead + self.name + " " * name_padd + " |")
-      out.append("| " + " " * (self.width - 4) + " |")
+      out.append(empty_row)
       out.append("| " + " " * feat_lead + self.feature + " " * feat_padd + " |")
-      out.append("| " + " " * (self.width - 4) + " |")
+      out.append(empty_row)
 
       # check for 1 or 2 shapes
-      if len(self.shape) == 3:
+      for i in range(3):
 
-        out.append("| " + " " * (self.width - 18) + self.shape[0] + " " * (self.width - 19) + " |")
-        out.append("| " + " " * (self.width - 18) + self.shape[1] + " " * (self.width - 19) + " |")
-        out.append("| " + " " * (self.width - 18) + self.shape[2] + " " * (self.width - 19) + " |")
+        if len(self.shape) == 3:
+          out.append("| " + " " * (self.width - 18) + self.shape[i] + " " * (self.width - 19) + " |")
 
-      if len(self.shape) == 6:
+        if len(self.shape) == 6:
+          out.append("| " + " " * (self.width - 24) + self.shape[i] + " | " + self.shape[i+3] + " " * (self.width - 24) + " |")
 
-        out.append("| " + " " * (self.width - 24) + self.shape[0] + " | " + self.shape[3] + " " * (self.width - 24) + " |")
-        out.append("| " + " " * (self.width - 24) + self.shape[1] + " | " + self.shape[4] + " " * (self.width - 24) + " |")
-        out.append("| " + " " * (self.width - 24) + self.shape[2] + " | " + self.shape[5] + " " * (self.width - 24) + " |")
-
-    # solo score
-    out.append("| " + " " * (self.width - 4) + " |")
+    # card number
+    out.append(empty_row)
     out.append("| " + " " * (self.width - 9) + self.number + "/41 |")
 
     # bottom border
