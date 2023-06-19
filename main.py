@@ -84,3 +84,4 @@ if __name__ == "__main__":
   # print test
   print(*c06.rendering, sep = "\n")
   print(*c07.rendering, sep = "\n")
+  
