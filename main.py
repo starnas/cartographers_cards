@@ -16,7 +16,8 @@ class Card:
     card_number = "NA",
     card_season = "NA",
     card_sTime = "NA",
-    card_sLength = "NA"):
+    card_sLength = "NA",
+    card_info = "NA"):
 
       # variables
       self.width = card_width
@@ -30,6 +31,7 @@ class Card:
       self.season = card_season
       self.sTime = card_sTime
       self.sLength = card_sLength
+      self.info = card_info
       self.rendering = self.render()
 
   # card renderer
@@ -79,12 +81,20 @@ class Card:
     if self.type == "legend":
 
       # prepare local variables
+      if self.season == "Spring":
+        season_scoring = "A & B"
+      elif self.season == "Summer":
+        season_scoring = "A & B"
+      elif self.season == "Fall":
+        season_scoring = "A & B"
+      elif self.season == "Winter":
+        season_scoring = "A & B"
+      else:
+        season_scoring = "ERROR"
 
-      # display the season
+      # display the season info
       out.append("| season: " + self.season + " " * (self.width - 12 - len(self.season)) + " |")
-      out.append(empty_row)
-
-      # display time in season
+      out.append("| season scoring: " + season_scoring + " " * (self.width - 20 - len(season_scoring)) + " |")
       out.append("| season progress: " + str(self.sTime) + "/" + str(self.sLength) + " " * (self.width - 22 - len(str(self.sTime)) - len(str(self.sLength))) + " |")
       out.append(empty_row)
 
@@ -103,7 +113,11 @@ class Card:
     # return
     return(out)
 
-# display render
+#def update_legend(leg, exp):
+
+  # if its a Ruins card, update info field
+
+# render a line for the display
 def render_display_line(c1, c2 = "NA", c3 = "NA", c4 = "NA"):
 
   out = []
@@ -120,6 +134,16 @@ def render_display_line(c1, c2 = "NA", c3 = "NA", c4 = "NA"):
 
   return(out)
 
+# print the display
+def update_display(sc1, sc2, sc3, sc4, exp, leg):
+  
+  # render lines
+  l1 = render_display_line(sc1, sc2, sc3, sc4)
+  l2 = render_display_line(exp, leg)  
+
+  # print them them
+  print(*l1, sep = "\n")
+  print(*l2, sep = "\n")
 
 # main
 if __name__ == "__main__":
@@ -136,11 +160,5 @@ if __name__ == "__main__":
   c10 = Card(25, "explore", "Forgotten Forest", 1, ["[]      ", "  []    ", "     (C)", "[]      ", "[][]    ", "  []    "], "[T]", "NA", "10")
 
   # print test
-  #print(*c07.rendering, sep = "\n")
-  #print(*c08.rendering, sep = "\n")
-  #print(*c09.rendering, sep = "\n")
-  l1 = render_display_line(c07.rendering, c08.rendering, c09.rendering, c10.rendering)
-  l2 = render_display_line(c07.rendering, c00.rendering)  
+  update_display(c07.rendering, c08.rendering, c09.rendering, c10.rendering, c05.rendering, c00.rendering)  
 
-  print(*l1, sep = "\n")
-  print(*l2, sep = "\n")
