@@ -72,6 +72,10 @@ class Card:
         if len(self.shape) == 6:
           out.append("| " + " " * (self.width - 24) + self.shape[i] + " | " + self.shape[i+3] + " " * (self.width - 24) + " |")
 
+      # card number
+      out.append(empty_row)
+      out.append("| " + " " * (self.width - 9) + self.number + "/41 |")
+
     if self.type == "legend":
 
       # prepare local variables
@@ -81,19 +85,17 @@ class Card:
       out.append(empty_row)
 
       # display time in season
-      out.append("| season progress: " + str(self.sTime) + "/" + str(self.sLength) + " " * (self.width - 22 - len(str(self.sTime)) - len(str(self.sLength))) + " |")      
+      out.append("| season progress: " + str(self.sTime) + "/" + str(self.sLength) + " " * (self.width - 22 - len(str(self.sTime)) - len(str(self.sLength))) + " |")
       out.append(empty_row)
 
-      out.append(empty_row) 
-      out.append(empty_row) 
- 
-      out.append(empty_row) 
-      out.append(empty_row) 
-      out.append(empty_row) 
-
-    # card number
-    out.append(empty_row)
-    out.append("| " + " " * (self.width - 9) + self.number + "/41 |")
+      # display the drawing legend
+      out.append("| [T] Tree   [H] House  [W] Water  [F] Field  [M] Monster" + " " * (self.width - 59) + " |")
+      out.append("| ---------  ---------  ---------  ---------  ---------  " + " " * (self.width - 59) + " |") 
+      out.append("| | o   o |  |  ___  |  | /\/\/ |  |  / / /|  |/\___/\|  " + " " * (self.width - 59) + " |") 
+      out.append("| | | o | |  | /   \ |  | /\/\/ |  | / / / |  |\ o o /|  " + " " * (self.width - 59) + " |") 
+      out.append("| |   |   |  | |___| |  | /\/\/ |  |/ / /  |  | \___/ |  " + " " * (self.width - 59) + " |") 
+      out.append("| ---------  ---------  ---------  ---------  ---------  " + " " * (self.width - 59) + " |") 
+      out.append(empty_row)
 
     # bottom border
     out.append("-" * self.width)
