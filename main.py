@@ -1,3 +1,4 @@
+import os
 import math
 
 # generic card class
@@ -91,12 +92,12 @@ class Card:
       out.append(empty_row)
 
       # display the drawing legend
-      out.append("| [T] Tree   [H] House  [W] Water  [F] Field  [M] Monster" + " " * (self.width - 59) + " |")
-      out.append("| ---------  ---------  ---------  ---------  ---------  " + " " * (self.width - 59) + " |") 
-      out.append("| | o   o |  |  ___  |  | /\/\/ |  |  / / /|  |/\___/\|  " + " " * (self.width - 59) + " |") 
-      out.append("| | | o | |  | /   \ |  | /\/\/ |  | / / / |  |\ o o /|  " + " " * (self.width - 59) + " |") 
-      out.append("| |   |   |  | |___| |  | /\/\/ |  |/ / /  |  | \___/ |  " + " " * (self.width - 59) + " |") 
-      out.append("| ---------  ---------  ---------  ---------  ---------  " + " " * (self.width - 59) + " |") 
+      out.append("|  [T] Tree      [H] House     [W] Water     [F] Field     [M] Monster  " + " " * (self.width - 74) + " |")
+      out.append("|  -----------   -----------   -----------   -----------   -----------  " + " " * (self.width - 74) + " |") 
+      out.append("|  |  o   o  |   |   ___   |   |  /\/\/  |   |   / / / |   | /\___/\ |  " + " " * (self.width - 74) + " |") 
+      out.append("|  |  | o |  |   |  /   \  |   |  /\/\/  |   |  / / /  |   | \ o o / |  " + " " * (self.width - 74) + " |") 
+      out.append("|  |    |    |   |  |___|  |   |  /\/\/  |   | / / /   |   |  \___/  |  " + " " * (self.width - 74) + " |") 
+      out.append("|  -----------   -----------   -----------   -----------   -----------  " + " " * (self.width - 74) + " |") 
       out.append("| information: " + self.info + " " * (self.width - 17 - len(self.info)) + " |")
 
     # bottom border
@@ -113,22 +114,27 @@ def update_legend(leg, exp):
     leg.info = "ruin revealed, next shape on a ruin space if possible"
     leg.ruin = True
     leg.rendering = leg.render()
+  
+  # if a monster card is revaled, update info
+  elif exp.time == "M":
+    leg.info = "monster revealed! "
+    leg.rendering = leg.render()
 
+  # regular explore card
   else:
 
-    # increment time 
+    # regular card - increment time 
     leg.progress = leg.progress + exp.time
 
-    # check for ruin
-
-    # check for monster
-
+    # check if ruin flag
+    if leg.ruin:
+      leg.info = "ruin previously revealed, draw on a ruin space if possible"
+      leg.rendering = leg.render()
+    
     # check for season end
 
-      # check for game end
 
-      # start new season
-  
+
 
 
 # render a line for the display
@@ -158,6 +164,13 @@ def update_display(sc1, sc2, sc3, sc4, exp, leg):
   # print them them
   print(*l1, sep = "\n")
   print(*l2, sep = "\n")
+ 
+# define clear function
+def clear():
+  if os.name == 'posix':
+    os.system('clear')
+  else:
+    os.system('cls')
 
 # main
 if __name__ == "__main__":
@@ -165,15 +178,33 @@ if __name__ == "__main__":
   # generate the legend
   c00 = Card(75, "legend", c_season = "Spring", c_score = "A & B", c_length = 8, c_progress = 0, c_info = "new season starts, progress reset to 0")
 
+  # generate monster cards
+
   # generate explore cards
   c05 = Card(25, "explore", "Temple Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "05")
   c06 = Card(25, "explore", "Outpost Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "06")
-  c07 = Card(25, "explore", "Great River", 1, ["[]      ", "[]      ", "[]   (C)", "    []  ", "  [][]  ", "[][]    "], "[W]", "07")
-  c08 = Card(25, "explore", "Farmland", 1, ["[]      ", "[]      ", "     (C)", "  []    ", "[][][]  ", "  []    "], "[F]", "08")
-  c09 = Card(25, "explore", "Hamlet", 1, ["[]      ", "[][]    ", "     (C)", "[][][]  ", "[][]    ", "        "], "[H]", "09")
-  c10 = Card(25, "explore", "Forgotten Forest", 1, ["[]      ", "  []    ", "     (C)", "[]      ", "[][]    ", "  []    "], "[T]", "10")
+  c07 = Card(25, "explore", "Great River", 1, ["[]      ", "[]      ", "[]   (C)", "      []", "    [][]", "  [][]  "], "[W]", "07")
+  c08 = Card(25, "explore", "Farmland", 1, ["[]      ", "[]      ", "     (C)", "    []  ", "  [][][]", "    []  "], "[F]", "08")
+  c09 = Card(25, "explore", "Hamlet", 1, ["[]      ", "[][]    ", "     (C)", "  [][][]", "  [][]  ", "        "], "[H]", "09")
+  c10 = Card(25, "explore", "Forgotten Forest", 1, ["[]      ", "  []    ", "     (C)", "  []    ", "  [][]  ", "    []  "], "[T]", "10")
+  c11 = Card(25, "explore", "Hinterland Stream", 2, ["[][][]  ", "[]      ", "[]      "], "[F] / [W]", "11")
+  c12 = Card(25, "explore", "Homestead", 2, ["  []    ", "  [][]  ", "  []    "], "[H] / [F]", "12")
+  c13 = Card(25, "explore", "Orchard", 2, ["[][][]  ", "    []  ", "        "], "[T] / [F]", "13")
+  c14 = Card(25, "explore", "Treetop Village", 2, ["    [][]", "[][][]  ", "        "], "[T] / [H]", "14")
+  c15 = Card(25, "explore", "Marshlands", 2, ["[]      ", "[][][]  ", "[]      "], "[T] / [W]", "15")
+  c16 = Card(25, "explore", "Fishing Village", 2, ["        ", "[][][][]", "        "], "[H] / [W]", "16")
+  c17 = Card(25, "explore", "Rift Lands", 0, ["        ", "  []    ", "        "], "[T]/[H]/[F]/[W]/[M]", "17")
+
+  
+
+  # generate scoring cards
 
   # print test
-  update_display(c07.rendering, c08.rendering, c09.rendering, c10.rendering, c05.rendering, c00.rendering)  
+  
   update_legend(c00, c05)
+  clear()
   update_display(c07.rendering, c08.rendering, c09.rendering, c10.rendering, c05.rendering, c00.rendering)  
+
+  update_legend(c00, c11)
+  clear()
+  update_display(c13.rendering, c14.rendering, c15.rendering, c16.rendering, c17.rendering, c00.rendering)  
