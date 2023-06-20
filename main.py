@@ -14,10 +14,8 @@ class Card:
     card_feature = "NA",
     solo_score = "NA",
     card_number = "NA",
-    card_season = "NA",
-    card_sTime = "NA",
-    card_sLength = "NA",
-    card_info = "NA"):
+    card_season = "Spring",
+    card_info = "new season starts, progress reset to 0"):
 
       # variables
       self.width = card_width
@@ -29,8 +27,6 @@ class Card:
       self.stars = solo_score
       self.number = card_number
       self.season = card_season
-      self.sTime = card_sTime
-      self.sLength = card_sLength
       self.info = card_info
       self.rendering = self.render()
 
@@ -83,19 +79,29 @@ class Card:
       # prepare local variables
       if self.season == "Spring":
         season_scoring = "A & B"
+        season_length = 8
+        season_progress = 0
       elif self.season == "Summer":
         season_scoring = "A & B"
+        season_length = 8
+        season_progress = 0
       elif self.season == "Fall":
         season_scoring = "A & B"
+        season_length = 8
+        season_progress = 0
       elif self.season == "Winter":
         season_scoring = "A & B"
+        season_length = 8
+        season_progress = 0
       else:
         season_scoring = "ERROR"
+        season_length = 0
+        season_progress = 0
 
       # display the season info
       out.append("| season: " + self.season + " " * (self.width - 12 - len(self.season)) + " |")
       out.append("| season scoring: " + season_scoring + " " * (self.width - 20 - len(season_scoring)) + " |")
-      out.append("| season progress: " + str(self.sTime) + "/" + str(self.sLength) + " " * (self.width - 22 - len(str(self.sTime)) - len(str(self.sLength))) + " |")
+      out.append("| season progress: " + str(season_progress) + "/" + str(season_length) + " " * (self.width - 22 - len(str(season_progress)) - len(str(season_length))) + " |")
       out.append(empty_row)
 
       # display the drawing legend
@@ -105,7 +111,7 @@ class Card:
       out.append("| | | o | |  | /   \ |  | /\/\/ |  | / / / |  |\ o o /|  " + " " * (self.width - 59) + " |") 
       out.append("| |   |   |  | |___| |  | /\/\/ |  |/ / /  |  | \___/ |  " + " " * (self.width - 59) + " |") 
       out.append("| ---------  ---------  ---------  ---------  ---------  " + " " * (self.width - 59) + " |") 
-      out.append(empty_row)
+      out.append("| information: " + self.info + " " * (self.width - 17 - len(self.info)) + " |")
 
     # bottom border
     out.append("-" * self.width)
@@ -149,7 +155,7 @@ def update_display(sc1, sc2, sc3, sc4, exp, leg):
 if __name__ == "__main__":
 
   # generate the legend
-  c00 = Card(75, "legend", card_number = "00", card_season = "Spring", card_sTime = 0, card_sLength = 8)
+  c00 = Card(75, "legend", card_number = "00")
 
   # generate explore cards
   c05 = Card(25, "explore", "Temple Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "NA", "05")
