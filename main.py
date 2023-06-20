@@ -6,28 +6,36 @@ class Card:
   # main initialization
   def __init__(
     self,
-    card_width = 20,
-    card_type = "NA",
-    card_name = "NA",
-    card_time = "NA",
-    card_shape = "NA",
-    card_feature = "NA",
-    solo_score = "NA",
-    card_number = "NA",
-    card_season = "Spring",
-    card_info = "new season starts, progress reset to 0"):
+    c_width = 25,
+    c_type = "NA",
+    c_name = "NA",
+    c_time = "NA",
+    c_shape = "NA",
+    c_feature = "NA",
+    c_number = "NA",
+    c_stars = "NA",
+    c_season = "Spring",
+    c_score = "NA",
+    c_length = "NA",
+    c_progress = "NA",
+    c_ruin = False,
+    c_info = "NA"):
 
       # variables
-      self.width = card_width
-      self.type = card_type
-      self.name = card_name
-      self.time = card_time
-      self.shape = card_shape
-      self.feature = card_feature
-      self.stars = solo_score
-      self.number = card_number
-      self.season = card_season
-      self.info = card_info
+      self.width = c_width
+      self.type = c_type
+      self.name = c_name
+      self.time = c_time
+      self.shape = c_shape
+      self.feature = c_feature
+      self.number = c_number
+      self.stars = c_stars
+      self.season = c_season
+      self.score = c_score
+      self.length = c_length
+      self.progress = c_progress
+      self.ruin = c_ruin
+      self.info = c_info
       self.rendering = self.render()
 
   # card renderer
@@ -76,32 +84,10 @@ class Card:
 
     if self.type == "legend":
 
-      # prepare local variables
-      if self.season == "Spring":
-        season_scoring = "A & B"
-        season_length = 8
-        season_progress = 0
-      elif self.season == "Summer":
-        season_scoring = "A & B"
-        season_length = 8
-        season_progress = 0
-      elif self.season == "Fall":
-        season_scoring = "A & B"
-        season_length = 8
-        season_progress = 0
-      elif self.season == "Winter":
-        season_scoring = "A & B"
-        season_length = 8
-        season_progress = 0
-      else:
-        season_scoring = "ERROR"
-        season_length = 0
-        season_progress = 0
-
       # display the season info
       out.append("| season: " + self.season + " " * (self.width - 12 - len(self.season)) + " |")
-      out.append("| season scoring: " + season_scoring + " " * (self.width - 20 - len(season_scoring)) + " |")
-      out.append("| season progress: " + str(season_progress) + "/" + str(season_length) + " " * (self.width - 22 - len(str(season_progress)) - len(str(season_length))) + " |")
+      out.append("| season scoring: " + self.score + " " * (self.width - 20 - len(self.score)) + " |")
+      out.append("| season progress: " + str(self.progress) + "/" + str(self.length) + " " * (self.width - 22 - len(str(self.progress)) - len(str(self.length))) + " |")
       out.append(empty_row)
 
       # display the drawing legend
@@ -119,9 +105,31 @@ class Card:
     # return
     return(out)
 
-#def update_legend(leg, exp):
+# function for handling updates to the legend
+def update_legend(leg, exp):
 
-  # if its a Ruins card, update info field
+  # if a Ruins card is revealed, update info field and the flag
+  if exp.time == "R":
+    leg.info = "ruin revealed, next shape on a ruin space if possible"
+    leg.ruin = True
+    leg.rendering = leg.render()
+
+  else:
+
+    # increment time 
+    leg.progress = leg.progress + exp.time
+
+    # check for ruin
+
+    # check for monster
+
+    # check for season end
+
+      # check for game end
+
+      # start new season
+  
+
 
 # render a line for the display
 def render_display_line(c1, c2 = "NA", c3 = "NA", c4 = "NA"):
@@ -155,16 +163,17 @@ def update_display(sc1, sc2, sc3, sc4, exp, leg):
 if __name__ == "__main__":
 
   # generate the legend
-  c00 = Card(75, "legend", card_number = "00")
+  c00 = Card(75, "legend", c_season = "Spring", c_score = "A & B", c_length = 8, c_progress = 0, c_info = "new season starts, progress reset to 0")
 
   # generate explore cards
-  c05 = Card(25, "explore", "Temple Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "NA", "05")
-  c06 = Card(25, "explore", "Outpost Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "NA", "06")
-  c07 = Card(25, "explore", "Great River", 1, ["[]      ", "[]      ", "[]   (C)", "    []  ", "  [][]  ", "[][]    "], "[W]", "NA", "07")
-  c08 = Card(25, "explore", "Farmland", 1, ["[]      ", "[]      ", "     (C)", "  []    ", "[][][]  ", "  []    "], "[F]", "NA", "08")
-  c09 = Card(25, "explore", "Hamlet", 1, ["[]      ", "[][]    ", "     (C)", "[][][]  ", "[][]    ", "        "], "[H]", "NA", "09")
-  c10 = Card(25, "explore", "Forgotten Forest", 1, ["[]      ", "  []    ", "     (C)", "[]      ", "[][]    ", "  []    "], "[T]", "NA", "10")
+  c05 = Card(25, "explore", "Temple Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "05")
+  c06 = Card(25, "explore", "Outpost Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "06")
+  c07 = Card(25, "explore", "Great River", 1, ["[]      ", "[]      ", "[]   (C)", "    []  ", "  [][]  ", "[][]    "], "[W]", "07")
+  c08 = Card(25, "explore", "Farmland", 1, ["[]      ", "[]      ", "     (C)", "  []    ", "[][][]  ", "  []    "], "[F]", "08")
+  c09 = Card(25, "explore", "Hamlet", 1, ["[]      ", "[][]    ", "     (C)", "[][][]  ", "[][]    ", "        "], "[H]", "09")
+  c10 = Card(25, "explore", "Forgotten Forest", 1, ["[]      ", "  []    ", "     (C)", "[]      ", "[][]    ", "  []    "], "[T]", "10")
 
   # print test
   update_display(c07.rendering, c08.rendering, c09.rendering, c10.rendering, c05.rendering, c00.rendering)  
-
+  update_legend(c00, c05)
+  update_display(c07.rendering, c08.rendering, c09.rendering, c10.rendering, c05.rendering, c00.rendering)  
