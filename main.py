@@ -101,7 +101,7 @@ class Card:
       out.append("|  |  | o |  |   |  /   \  |   |  /\/\/  |   |  / / /  |   | \ o o / |  " + " " * (self.width - 74) + " |") 
       out.append("|  |    |    |   |  |___|  |   |  /\/\/  |   | / / /   |   |  \___/  |  " + " " * (self.width - 74) + " |") 
       out.append("|  -----------   -----------   -----------   -----------   -----------  " + " " * (self.width - 74) + " |") 
-      out.append("| information: " + self.info + " " * (self.width - 17 - len(self.info)) + " |")
+      out.append("| info: " + self.info + " " * (self.width - 10 - len(self.info)) + " |")
 
     # bottom border
     out.append("-" * self.width)
@@ -135,6 +135,11 @@ def update_legend(leg, exp):
       leg.rendering = leg.render()
     
     # check for season end
+    #if leg.progress >= leg.length:
+
+      # check for game end
+
+      # next season flag
 
 
 
@@ -143,6 +148,7 @@ def update_legend(leg, exp):
 # render a line for the display
 def render_display_line(c1, c2 = "NA", c3 = "NA", c4 = "NA"):
 
+  # output output list
   out = []
 
   for i in range(len(c1)):
@@ -155,6 +161,7 @@ def render_display_line(c1, c2 = "NA", c3 = "NA", c4 = "NA"):
       out_line = out_line + c4[i]
     out.append(out_line)
 
+  # return display as list
   return(out)
 
 # print the display
@@ -201,6 +208,11 @@ if __name__ == "__main__":
   c15 = Card(25, "explore", "Marshlands", 2, ["[]      ", "[][][]  ", "[]      "], "[T] / [W]", "15")
   c16 = Card(25, "explore", "Fishing Village", 2, ["        ", "[][][][]", "        "], "[H] / [W]", "16")
   c17 = Card(25, "explore", "Rift Lands", 0, ["        ", "  []    ", "        "], "[T]/[H]/[F]/[W]/[M]", "17")
+
+  # season cards
+
+  # edict cards
+  # c22, c23, c24, c25
 
   
 
