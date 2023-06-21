@@ -52,7 +52,7 @@ class Card:
     empty_row = "| " + " " * (self.width - 4) + " |"
 
     # card type selector
-    if self.type == "explore":
+    if self.type == "explore" or self.type == "ambush":
 
       # prepare local variables
       name_lead = math.floor((self.width - 4 - len(self.name))/2)
@@ -61,7 +61,10 @@ class Card:
       feat_padd = math.ceil((self.width - 4 - len(self.feature))/2)
 
       # top part of card
-      out.append("| time: " + str(self.time) + " " * (self.width - 11) + " |")
+      if self.type == "explore":
+        out.append("| time: " + str(self.time) + " " * (self.width - 11) + " |")
+      else:
+        out.append("| loc: " + str(self.time) + " " * (self.width - 9 - len(self.time)) + " |")
       out.append(empty_row)
       out.append("| " + " " * name_lead + self.name + " " * name_padd + " |")
       out.append(empty_row)
@@ -116,8 +119,8 @@ def update_legend(leg, exp):
     leg.rendering = leg.render()
   
   # if a monster card is revaled, update info
-  elif exp.time == "M":
-    leg.info = "monster revealed! "
+  elif exp.type == "ambush":
+    leg.info = "monster revealed!"
     leg.rendering = leg.render()
 
   # regular explore card
@@ -178,7 +181,11 @@ if __name__ == "__main__":
   # generate the legend
   c00 = Card(75, "legend", c_season = "Spring", c_score = "A & B", c_length = 8, c_progress = 0, c_info = "new season starts, progress reset to 0")
 
-  # generate monster cards
+  # generate ambush cards
+  c01 = Card(25, "ambush", "Goblin Attack", "bottom-right", ["  <---  ", " c-clock", "  --->  ", "[]      ", "  []    ", "    []  "], " ", "01")
+  c02 = Card(25, "ambush", "Bugbear Assault", "top-right", ["  --->  ", "  clock ", "  <---  ", "[]  []  ", "[]  []  ", "        "], " ", "02")
+  c03 = Card(25, "ambush", "Kobold Onslaught", "bottom-left", ["  --->  ", "  clock ", "  <---  ", "[]      ", "[][]    ", "[]      "], " ", "03")
+  c04 = Card(25, "ambush", "Gnoll Raid", "top-left", ["  <---  ", " c-clock", "  --->  ", "[][]    ", "[]      ", "[][]    "], " ", "04")
 
   # generate explore cards
   c05 = Card(25, "explore", "Temple Ruins", "R", [" __     ", " || __  ", " || ||  "], " ", "05")
@@ -208,3 +215,7 @@ if __name__ == "__main__":
   update_legend(c00, c11)
   clear()
   update_display(c13.rendering, c14.rendering, c15.rendering, c16.rendering, c17.rendering, c00.rendering)  
+
+  update_legend(c00, c01)
+  clear()
+  update_display(c01.rendering, c02.rendering, c03.rendering, c04.rendering, c01.rendering, c00.rendering)  
