@@ -209,7 +209,14 @@ if __name__ == "__main__":
   c16 = Card(25, "explore", "Fishing Village", 2, ["        ", "[][][][]", "        "], "[H] / [W]", "16")
   c17 = Card(25, "explore", "Rift Lands", 0, ["        ", "  []    ", "        "], "[T]/[H]/[F]/[W]/[M]", "17")
 
+  # generate explore deck
+  deck_explore = [c05, c06, c07, c08, c09, c10, c11, c12, c13, c14, c15, c16, c17]
+
   # season cards
+  c18 = Card(25, "season", "Spring", "R", ["        ", "        ", "        "], "A & B", "18")
+  c18 = Card(25, "season", "Spring", "R", ["        ", "        ", "        "], "A & B", "18")
+  c18 = Card(25, "season", "Spring", "R", ["        ", "        ", "        "], "A & B", "18")
+  c18 = Card(25, "season", "Spring", "R", ["        ", "        ", "        "], "A & B", "18")
 
   # edict cards
   # c22, c23, c24, c25
